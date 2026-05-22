@@ -1,0 +1,41 @@
+Parcela,pH,Grado de erosión,Pendiente %,Materia orgánica %,Lluvia mm,Fósforo mg/kg,Nitrógeno mg/kg,Potasio mg/kg,Cosecha principal,Nivel de fertilidad
+P1,6.4,Baja,8,4.1,780,18,35,210,Maíz,Medio
+P2,5.9,Media,12,3.5,760,15,28,190,Frijol,Bajo
+P3,6.8,Baja,5,4.8,810,20,42,230,Nopal,Alto
+P4,5.7,Alta,18,2.9,730,12,24,170,Maíz,Bajo
+P5,6.2,Media,10,3.9,790,17,31,205,Aguacate,Medio
+P6,6.5,Baja,7,4.3,820,19,38,225,Maíz,Medio-Alto
+P7,5.8,Alta,20,2.7,715,10,22,160,Frijol,Bajo
+P8,6.1,Media,14,3.2,770,14,29,185,Nopal,Medio
+P9,6.7,Baja,6,4.6,805,21,40,240,Aguacate,Alto
+P10,5.6,Alta,22,2.5,700,9,20,155,Maíz,Bajo
+P11,6.3,Media,11,3.8,785,16,33,200,Frijol,Medio
+P12,6,Media,13,3.4,755,13,27,180,Nopal,Medio
+P13,6.9,Baja,4,5,830,22,44,250,Aguacate,Alto
+P14,5.5,Alta,24,2.3,690,8,18,150,Maíz,Muy Bajo
+P15,6.2,Media,9,3.7,775,15,30,195,Frijol,Medio
+P16,6.6,Baja,6,4.4,815,20,39,235,Nopal,Alto
+P17,5.8,Alta,19,2.8,720,11,23,165,Maíz,Bajo
+P18,6.1,Media,15,3.1,765,14,26,175,Aguacate,Medio
+P19,6.4,Baja,8,4.2,800,18,36,220,Frijol,Medio-Alto
+P20,5.7,Alta,21,2.6,705,10,21,158,Nopal,Bajo
+P21,6.5,Baja,7,4.5,825,22,41,245,Maíz,Alto
+P22,6,Media,12,3.6,765,16,32,195,Aguacate,Medio
+P23,5.9,Alta,17,2.9,735,13,25,175,Frijol,Bajo
+P24,6.7,Baja,5,4.7,815,19,37,220,Nopal,Alto
+P25,6.2,Media,10,3.8,785,17,34,210,Maíz,Medio
+P26,5.8,Alta,20,2.4,710,11,23,165,Aguacate,Bajo
+P27,6.4,Baja,8,4.3,795,20,39,235,Frijol,Medio-Alto
+P28,6.1,Media,14,3.3,760,15,30,190,Nopal,Medio
+P29,6.9,Baja,4,5.1,835,23,45,255,Maíz,Alto
+P30,5.6,Alta,23,2.2,695,9,19,152,Aguacate,Muy Bajo
+P31,4.8,Alta,22,1.8,680,10,18,140,Maíz,Muy Bajo
+P32,4.5,Alta,24,1.5,650,8,15,130,Frijol,Muy Bajo
+P33,7.8,Media,19,2,700,12,16,150,Nopal,Bajo
+P34,4.3,Alta,25,1.6,660,9,14,120,Aguacate,Muy Bajo
+P35,5.2,Alta,20,2.2,710,13,20,145,Maíz,Bajo
+P36,7.9,Media,18,1.9,720,11,17,135,Frijol,Bajo
+P37,4.6,Alta,23,1.4,640,7,13,125,Nopal,Muy Bajo
+P38,5,Alta,26,1.7,670,10,16,130,Aguacate,Muy Bajo
+P39,6,Baja,8,5.2,790,45,60,280,Maíz,Exceso
+P40,6.1,Baja,7,5,770,48,55,260,Frijol,Exceso
