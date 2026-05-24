@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
+# Configuración de página
 st.set_page_config(page_title="AgroLógica Pro", page_icon="🌱", layout="wide")
 
 st.title("🌱 Sistema AgroLógica")
@@ -14,6 +15,7 @@ tab1, tab2 = st.tabs(["📊 Análisis Masivo de Parcelas", "🧪 Diagnosticar Nu
 # MOTOR LÓGICO: ANALÍTICA PRESCRIPTIVA
 # =====================================================================
 def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
+    # Filtro Físico
     if pendiente > 35.0 or str(erosion).lower() == "severa":
         return "Riesgo Físico", "🚨 RIESGO DE DESLAVE: Inclinación/erosión crítica. No invertir en químicos."
     if lluvia > 1000.0 and pendiente > 25.0:
@@ -33,53 +35,66 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
     recomendaciones = []
     alertas_exceso_quimico = []
     
+    # Déficits
     if n < req["n"]: recomendaciones.append(f"Falta {round(req['n'] - n, 1)} N")
     if p < req["p"]: recomendaciones.append(f"Falta {round(req['p'] - p, 1)} P")
     if k < req["k"]: recomendaciones.append(f"Falta {round(req['k'] - k, 1)} K")
     if mo < req["mo"]: recomendaciones.append(f"Falta {round(req['mo'] - mo, 1)}% MO")
     
+    # Clima y pH
     if lluvia < req["lluvia_min"]: recomendaciones.append("Sequía: Instalar riego")
     elif lluvia > req["lluvia_max"]: recomendaciones.append("Exceso Hídrico: Requiere drenaje")
     if mo > req["mo_max"]: recomendaciones.append(f"Bajar Humedad (+{round(mo - req['mo_max'], 1)}% MO)")
     if ph < req["ph_min"]: recomendaciones.append(f"Subir pH (+{round(req['ph_min'] - ph, 1)})")
     elif ph > req["ph_max"]: recomendaciones.append(f"Bajar pH (-{round(ph - req['ph_max'], 1)})")
 
+    # Toxicidad
     if n > req["n_max"]: alertas_exceso_quimico.append(f"Nitrógeno (+{round(n - req['n_max'], 1)})")
     if p > req["p_max"]: alertas_exceso_quimico.append(f"Fósforo (+{round(p - req['p_max'], 1)})")
     if k > req["k_max"]: alertas_exceso_quimico.append(f"Potasio (+{round(k - req['k_max'], 1)})")
         
-    if len(alertas_exceso_quimico) > 0:
-        return "Exceso", "🚨 TOXICIDAD: " + ", ".join(alertas_exceso_quimico)
-    elif len(recomendaciones) == 0:
-        return "Alta", "✅ Condiciones óptimas. Sin ajustes."
-    elif len(recomendaciones) <= 2:
-        return "Media", "💡 Corregir: " + " | ".join(recomendaciones)
-    else:
-        return "Baja", "⚠️ Nivelar: " + " | ".join(recomendaciones)
+    # Salidas
+    if len(alertas_exceso_quimico) > 0: return "Exceso", "🚨 TOXICIDAD: " + ", ".join(alertas_exceso_quimico)
+    elif len(recomendaciones) == 0: return "Alta", "✅ Condiciones óptimas. Sin ajustes."
+    elif len(recomendaciones) <= 2: return "Media", "💡 Corregir: " + " | ".join(recomendaciones)
+    else: return "Baja", "⚠️ Nivelar: " + " | ".join(recomendaciones)
 
 # =====================================================================
-# PESTAÑA 1: PROCESAMIENTO Y ANÁLISIS MASIVO DE DATOS
+# PESTAÑA 1: PROCESAMIENTO MASIVO
 # =====================================================================
 with tab1:
     st.header("Análisis de Parcelas Registradas")
     st.markdown("Sube el archivo de datos recopilados para generar el plan de acción de todas las parcelas.")
     
-    archivo_csv = st.file_uploader("Selecciona el archivo de la parcela (Formato .CSV)", type=["csv"])
+    archivo_csv = st.file_uploader("Selecciona el archivo (.CSV)", type=["csv"])
     
     if archivo_csv is not None:
+        # Carga de datos originales (crudos)
         df = pd.read_csv(archivo_csv)
-        df_limpio = df.fillna(df.median(numeric_only=True))
-        st.success("✅ El archivo se cargó correctamente y los datos incompletos fueron corregidos.")
         
-        # Nombres exactos de las columnas según tu archivo CSV
+        # Limpieza estadística
+        df_limpio = df.fillna(df.median(numeric_only=True))
+        st.success("✅ El archivo se cargó correctamente.")
+        
+        # --- NUEVA SECCIÓN: VISUALIZACIÓN DE DATOS COMPLETOS Y LIMPIEZA ---
+        with st.expander("👁️ Ver Base de Datos Completa y Proceso de Limpieza", expanded=False):
+            st.markdown("Para garantizar la calidad de la información, el sistema rellena los espacios vacíos (nulos) utilizando la **mediana estadística** de cada columna, evitando así errores en el cálculo final.")
+            
+            c1, c2 = st.columns(2)
+            with c1:
+                st.caption("📂 DATOS ORIGINALES (Con posibles valores en blanco o nulos):")
+                st.dataframe(df, height=250, use_container_width=True)
+            with c2:
+                st.caption("✨ DATOS LIMPIOS (Celdas vacías rellenadas):")
+                st.dataframe(df_limpio, height=250, use_container_width=True)
+        # ------------------------------------------------------------------
+
         cols_requeridas = ['pH', 'Grado de erosión', 'Pendiente %', 'Materia orgánica %', 'Lluvia mm', 'Fósforo mg/kg', 'Nitrógeno mg/kg', 'Potasio mg/kg', 'Cosecha principal']
         
-        # Validamos que el archivo tenga la información necesaria
         if all(col in df_limpio.columns for col in cols_requeridas):
             st.divider()
             st.subheader("🤖 Plan de Optimización Generado")
             
-            # MAGIA DE PANDAS: Aplicamos la función y dividimos el resultado en 2 columnas nuevas
             with st.spinner("Procesando matriz de datos..."):
                 df_limpio[['Diagnóstico_AgroLogica', 'Plan_de_Acción']] = df_limpio.apply(
                     lambda f: pd.Series(diagnostico_preciso(
@@ -88,14 +103,14 @@ with tab1:
                     )), axis=1
                 )
             
-            # Mostramos una tabla solo con lo que le importa al agricultor
+            # Tabla Resumen
             columnas_vista = ['Parcela', 'Cosecha principal', 'Diagnóstico_AgroLogica', 'Plan_de_Acción']
             if 'Parcela' in df_limpio.columns:
                 st.dataframe(df_limpio[columnas_vista], use_container_width=True, height=350)
             else:
                 st.dataframe(df_limpio[['Cosecha principal', 'Diagnóstico_AgroLogica', 'Plan_de_Acción']], use_container_width=True)
             
-            # Tarjetas de resumen
+            # Tarjetas
             total = len(df_limpio)
             riesgos = len(df_limpio[df_limpio['Diagnóstico_AgroLogica'].isin(['Riesgo Físico', 'Riesgo Ambiental', 'Exceso'])])
             saludables = len(df_limpio[df_limpio['Diagnóstico_AgroLogica'] == 'Alta'])
@@ -105,45 +120,84 @@ with tab1:
             c2.metric("Parcelas Óptimas", f"{saludables}")
             c3.metric("Riesgos Detectados", f"{riesgos}")
             
-            # BOTÓN DE DESCARGA DEL REPORTE
-            st.markdown("### 📥 Exportar Resultados")
-            csv_export = df_limpio.to_csv(index=False).encode('utf-8')
-            st.download_button(
-                label="Descargar Reporte de Diagnóstico (.CSV)",
-                data=csv_export,
-                file_name="Reporte_AgroLogica_Resultados.csv",
-                mime="text/csv",
-                type="secondary"
+            # --- NUEVO: GRÁFICO DE DISTRIBUCIÓN (MATPLOTLIB) ---
+            st.markdown("### 📊 Panorama General de la Cooperativa")
+            
+            # Contamos cuántas parcelas hay de cada diagnóstico
+            conteo_diagnostico = df_limpio['Diagnóstico_AgroLogica'].value_counts()
+            
+            # Configuramos los colores según la gravedad
+            colores_map = {
+                'Alta': '#28a745',          # Verde
+                'Media': '#17a2b8',         # Azul claro
+                'Baja': '#ffc107',          # Amarillo
+                'Exceso': '#dc3545',        # Rojo
+                'Riesgo Físico': '#6c757d', # Gris oscuro
+                'Riesgo Ambiental': '#343a40' # Negro
+            }
+            colores = [colores_map.get(x, '#000000') for x in conteo_diagnostico.index]
+            
+            # Creamos la figura de Matplotlib
+            fig, ax = plt.subplots(figsize=(7, 4))
+            
+            # Dibujamos el gráfico de dona
+            wedges, texts, autotexts = ax.pie(
+                conteo_diagnostico, 
+                labels=conteo_diagnostico.index, 
+                autopct='%1.1f%%', 
+                startangle=90, 
+                colors=colores,
             )
+            
+            # Círculo blanco al centro para hacerlo dona
+            centro_circulo = plt.Circle((0,0), 0.70, fc='none')
+            fig.gca().add_artist(centro_circulo)
+            
+            ax.axis('equal')  
+            plt.setp(texts, size=10, color="#808080", weight="bold")
+            plt.setp(autotexts, size=10, color="white", weight="bold")
+            # Mostramos el gráfico en Streamlit
+            st.pyplot(fig, transparent=True)
+            st.divider()
+
+            # Descarga
+            csv_export = df_limpio.to_csv(index=False).encode('utf-8')
+            st.download_button(label="📥 Descargar Reporte de Diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
 
             st.divider()
             
+            # --- SECCIÓN CIENTÍFICA ACTUALIZADA (Álgebra Matricial) ---
             with st.expander("🔬 CLIC AQUÍ: Ver justificación matemática y académica (Rúbrica)"):
                 cols_num = ['pH', 'Pendiente %', 'Materia orgánica %', 'Nitrógeno mg/kg']
+                
                 st.markdown("### 1. Estadística: Estandarización (Z-Score)")
                 df_std = (df_limpio[cols_num] - df_limpio[cols_num].mean()) / df_limpio[cols_num].std()
                 st.write(df_std.head(3))
                 
-                st.markdown("### 2. Álgebra Lineal: Similitud y Distancia Vectorial")
-                st.latex(r"\|\vec{v}_{parcela} - \vec{v}_{ideal}\|")
-                vector_ideal = np.array([6.5, 10.0, 4.0, 40.0])
-                df_limpio['Distancia_al_Ideal'] = df_limpio[cols_num].apply(
-                    lambda fila: np.linalg.norm(fila.values - vector_ideal), axis=1
-                )
-                st.write(df_limpio[['Distancia_al_Ideal']].head(3))
+                st.markdown("### 2. Álgebra Matricial: Sustracción y Cálculo de Déficit")
+                st.markdown("Se modelan las parcelas como una matriz $A$. Se resta el vector ideal $B$ (ej. requerimientos del Maíz) para obtener la matriz de decisión $D$, donde valores negativos indican deficiencia y positivos indican superávit o riesgo de toxicidad.")
+                st.latex(r"D = A - B")
+                
+                # Ejemplo de álgebra matricial real con los datos
+                cols_matriz = ['pH', 'Materia orgánica %', 'Nitrógeno mg/kg', 'Fósforo mg/kg', 'Potasio mg/kg']
+                vector_ideal = np.array([6.5, 3.0, 30.0, 15.0, 150.0]) # Perfil del maíz
+                
+                df_matriz = df_limpio[cols_matriz].head(5) # Tomamos 5 parcelas de ejemplo
+                df_resultado = df_matriz - vector_ideal
+                st.write("**Matriz Resultante $D$ (Muestra de las primeras 5 parcelas):**")
+                st.dataframe(df_resultado)
                 
                 st.markdown("### 3. Cálculo Diferencial: Optimización")
                 st.latex(r"f'(x) = -0.10x + 5 = 0 \implies x = 50 \text{ mg/kg}")
-                st.info("La derivada primera determina que 50 mg/kg es el punto óptimo.")
+                st.info("La derivada primera determina los umbrales máximos de absorción en el código para evitar escorrentías tóxicas.")
         else:
-            st.error("⚠️ El archivo CSV no contiene las columnas necesarias. Verifica que los nombres de las columnas coincidan exactamente con la base de datos original.")
+            st.error("⚠️ El archivo CSV no contiene las columnas necesarias.")
 
 # =====================================================================
-# PESTAÑA 2: CLASIFICADOR DE NUEVAS MUESTRAS (Interfaz de usuario)
+# PESTAÑA 2: DIAGNÓSTICO MANUAL
 # =====================================================================
 with tab2:
     st.header("Analizar un Nuevo Terreno Manualmente")
-    st.markdown("Introduce las lecturas del terreno y del análisis químico para obtener una recomendación precisa.")
     
     st.subheader("🌍 1. Datos Físicos y Climáticos")
     col1, col2, col3, col4 = st.columns(4)
@@ -172,3 +226,63 @@ with tab2:
         elif nivel in ["Riesgo Físico", "Riesgo Ambiental"]: st.error(f"🏔️ **TERRENO NO APTO:** {mensaje}")
         elif nivel == "Exceso": st.error(f"☠️ **{mensaje}**")
         else: st.warning(f"⚠️ **ATENCIÓN REQUERIDA:** {mensaje}")
+        
+        # --- NUEVO: GRÁFICO COMPARATIVO DE BARRAS ---
+        # Solo mostramos la gráfica química si el terreno pasó el filtro físico
+        if nivel not in ["Riesgo Físico", "Riesgo Ambiental"]:
+            st.markdown("### 📊 Comparativa: Tu Suelo vs. Requerimiento Ideal")
+            
+            # Diccionario base para extraer los ideales rápidamente
+            ideales_grafica = {
+                "maíz": {"n": 30.0, "p": 15.0, "k": 150.0},
+                "frijol": {"n": 15.0, "p": 12.0, "k": 120.0},
+                "nopal": {"n": 10.0, "p": 10.0, "k": 100.0},
+                "aguacate": {"n": 20.0, "p": 20.0, "k": 150.0}
+            }
+            
+            cultivo_key = cultivo_input.lower()
+            if cultivo_key not in ideales_grafica: cultivo_key = "maíz"
+            
+            ideal_n = ideales_grafica[cultivo_key]["n"]
+            ideal_p = ideales_grafica[cultivo_key]["p"]
+            ideal_k = ideales_grafica[cultivo_key]["k"]
+            
+            # Datos para la gráfica
+            etiquetas = ['Nitrógeno (N)', 'Fósforo (P)', 'Potasio (K)']
+            valores_actuales = [n_input, p_input, k_input]
+            valores_ideales = [ideal_n, ideal_p, ideal_k]
+            
+            x = np.arange(len(etiquetas))
+            ancho_barra = 0.35
+            
+            fig2, ax2 = plt.subplots(figsize=(8, 4))
+            barras_actuales = ax2.bar(x - ancho_barra/2, valores_actuales, ancho_barra, label='Tu Parcela', color='#17a2b8')
+            barras_ideales = ax2.bar(x + ancho_barra/2, valores_ideales, ancho_barra, label=f'Ideal ({cultivo_input})', color='#28a745')
+            
+            # Definimos el color Gris Neutro para que funcione en Modo Claro y Oscuro
+            color_texto = '#808080'
+            
+            # Aplicamos el color a todos los elementos del contorno
+            ax2.set_ylabel('Concentración (mg/kg)', color=color_texto, weight='bold')
+            ax2.set_title('Análisis de Macronutrientes (NPK)', color=color_texto, weight='bold')
+            ax2.set_xticks(x)
+            ax2.set_xticklabels(etiquetas, color=color_texto, weight='bold')
+            ax2.tick_params(axis='y', colors=color_texto)
+            
+            # Aplicamos el color al texto de la leyenda
+            leyenda = ax2.legend()
+            for text in leyenda.get_texts():
+                text.set_color(color_texto)
+                
+            # Aplicamos el color a los bordes de la gráfica (las espinas)
+            for spine in ax2.spines.values():
+                spine.set_edgecolor(color_texto)
+            
+            # Añadimos los números encima de las barras también en gris
+            ax2.bar_label(barras_actuales, padding=3, color=color_texto, weight='bold')
+            ax2.bar_label(barras_ideales, padding=3, color=color_texto, weight='bold')
+            
+            fig2.tight_layout()
+            
+            # Renderizamos con fondo transparente
+            st.pyplot(fig2, transparent=True)
