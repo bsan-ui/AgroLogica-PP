@@ -9,7 +9,7 @@ st.title("🌱 Sistema AgroLógica")
 st.markdown("Herramienta digital para el diagnóstico de la salud del suelo y optimización de cultivos.")
 st.divider()
 
-tab1, tab2 = st.tabs(["📊 Análisis Masivo de Parcelas", "🧪 Diagnosticar Nueva Muestra"])
+tab1, tab2 = st.tabs(["📊 Analizar Todos mis Terrenos", "🧪 Revisar un Solo Terreno"])
 
 # =====================================================================
 # MOTOR LÓGICO: ANALÍTICA PRESCRIPTIVA
@@ -63,8 +63,8 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
 # PESTAÑA 1: PROCESAMIENTO MASIVO
 # =====================================================================
 with tab1:
-    st.header("Análisis de Parcelas Registradas")
-    st.markdown("Sube el archivo de datos recopilados para generar el plan de acción de todas las parcelas.")
+    st.header("🚜 Revisión de Todas mis Parcelas")
+    st.markdown("Sube tu documento con los datos de tus tierras para decirte qué cuidados exactos necesitan.")
     
     archivo_csv = st.file_uploader("Selecciona el archivo (.CSV)", type=["csv"])
     
@@ -77,15 +77,15 @@ with tab1:
         st.success("✅ El archivo se cargó correctamente.")
         
         # --- NUEVA SECCIÓN: VISUALIZACIÓN DE DATOS COMPLETOS Y LIMPIEZA ---
-        with st.expander("👁️ Ver Base de Datos Completa y Proceso de Limpieza", expanded=False):
-            st.markdown("Para garantizar la calidad de la información, el sistema rellena los espacios vacíos (nulos) utilizando la **mediana estadística** de cada columna, evitando así errores en el cálculo final.")
+        with st.expander("📋 Ver la lista de mis tierras y corrección automática de errores", expanded=False):
+            st.markdown("A veces olvidamos anotar un dato en el campo. No te preocupes, si dejaste un espacio en blanco, el sistema lo rellena usando un cálculo seguro basado en tus otras tierras para que tu diagnóstico no falle.")
             
             c1, c2 = st.columns(2)
             with c1:
-                st.caption("📂 DATOS ORIGINALES (Con posibles valores en blanco o nulos):")
+                st.caption("📂 TUS DATOS ORIGINALES (Con posibles espacios en blanco):")
                 st.dataframe(df, height=250, use_container_width=True)
             with c2:
-                st.caption("✨ DATOS LIMPIOS (Celdas vacías rellenadas):")
+                st.caption("✨ DATOS CORREGIDOS (Espacios vacíos rellenados por el sistema):")
                 st.dataframe(df_limpio, height=250, use_container_width=True)
         # ------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ with tab1:
         
         if all(col in df_limpio.columns for col in cols_requeridas):
             st.divider()
-            st.subheader("🤖 Plan de Optimización Generado")
+            st.subheader("🌱 Tu Plan de Acción y Fertilizantes")
             
             with st.spinner("Procesando matriz de datos..."):
                 df_limpio[['Diagnóstico_AgroLogica', 'Plan_de_Acción']] = df_limpio.apply(
@@ -121,7 +121,7 @@ with tab1:
             c3.metric("Riesgos Detectados", f"{riesgos}")
             
             # --- NUEVO: GRÁFICO DE DISTRIBUCIÓN (MATPLOTLIB) ---
-            st.markdown("### 📊 Panorama General de la Cooperativa")
+            st.markdown("### 📊 Resumen: ¿Cómo están nuestras tierras?")
             
             # Contamos cuántas parcelas hay de cada diagnóstico
             conteo_diagnostico = df_limpio['Diagnóstico_AgroLogica'].value_counts()
