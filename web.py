@@ -157,9 +157,12 @@ with tab1:
             plt.setp(texts, size=10, color="#808080", weight="bold")
             plt.setp(autotexts, size=10, color="white", weight="bold")
             # Mostramos el gráfico en Streamlit
-            st.pyplot(fig, transparent=True)
+            col_espacio1, col_grafica, col_espacio2 = st.columns([1, 2, 1])
+            
+            with col_grafica:
+                st.pyplot(fig, transparent=True, use_container_width=True)
+            
             st.divider()
-
             # Descarga
             csv_export = df_limpio.to_csv(index=False).encode('utf-8')
             st.download_button(label="📥 Descargar Reporte de Diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
