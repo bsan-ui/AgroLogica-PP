@@ -293,7 +293,4 @@ with tab2:
             fig2.tight_layout()
             
             # Renderizamos con fondo transparente
-             col_space1, col_graphic, col_space2 = st.columns([1, 2, 1])
-            
-            with col_grafica:
-                st.pyplot(fig2, transparent=True)
+            st.pyplot(fig2, transparent=True)
