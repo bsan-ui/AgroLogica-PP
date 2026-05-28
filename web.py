@@ -187,7 +187,7 @@ with tab1:
                 st.write("**Matriz Resultante $D$ (Muestra de las primeras 5 parcelas):**")
                 st.dataframe(df_resultado)
                 
-               st.markdown("### 3. Cálculo Diferencial: Modelado Analítico y Optimización")
+                st.markdown("### 3. Cálculo Diferencial: Modelado Analítico y Optimización")
                 st.markdown("La respuesta del rendimiento agrícola frente a la adición de Nitrógeno no es lineal, sino parabólica. Se modela la función de rendimiento $f(x)$ para encontrar el límite biológico de saturación:")
                 st.latex(r"f(x) = -0.05x^2 + 7x + 10")
                 
