@@ -263,7 +263,7 @@ with tab2:
             x = np.arange(len(etiquetas))
             ancho_barra = 0.35
             
-            fig2, ax2 = plt.subplots(figsize=(4, 2))
+            fig2, ax2 = plt.subplots(figsize=(8, 4))
             barras_actuales = ax2.bar(x - ancho_barra/2, valores_actuales, ancho_barra, label='Tu Parcela', color='#17a2b8')
             barras_ideales = ax2.bar(x + ancho_barra/2, valores_ideales, ancho_barra, label=f'Ideal ({cultivo_input})', color='#28a745')
             
@@ -293,4 +293,7 @@ with tab2:
             fig2.tight_layout()
             
             # Renderizamos con fondo transparente
-            st.pyplot(fig2, transparent=True)
+             col_space1, col_graphic, col_space2 = st.columns([1, 2, 1])
+            
+            with col_grafica:
+                st.pyplot(fig2, transparent=True)
