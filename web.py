@@ -187,9 +187,15 @@ with tab1:
                 st.write("**Matriz Resultante $D$ (Muestra de las primeras 5 parcelas):**")
                 st.dataframe(df_resultado)
                 
-                st.markdown("### 3. Cálculo Diferencial: Optimización")
-                st.latex(r"f'(x) = -0.10x + 5 = 0 \implies x = 50 \text{ mg/kg}")
-                st.info("La derivada primera determina los umbrales máximos de absorción en el código para evitar escorrentías tóxicas.")
+               st.markdown("### 3. Cálculo Diferencial: Modelado Analítico y Optimización")
+                st.markdown("La respuesta del rendimiento agrícola frente a la adición de Nitrógeno no es lineal, sino parabólica. Se modela la función de rendimiento $f(x)$ para encontrar el límite biológico de saturación:")
+                st.latex(r"f(x) = -0.05x^2 + 7x + 10")
+                
+                st.markdown("Para maximizar la eficiencia y evitar toxicidad, se calcula la primera derivada y se iguala a cero (punto crítico):")
+                st.latex(r"f'(x) = -0.10x + 7 = 0")
+                st.latex(r"-0.10x = -7 \implies x = \frac{-7}{-0.10} = 70 \text{ mg/kg}")
+                
+                st.info("💡 Este valor (70 mg/kg) se inyecta directamente en el motor lógico del software como la cota superior absoluta. Si el suelo supera este límite, el sistema bloquea las recomendaciones químicas para evitar el lavado hídrico.")
         else:
             st.error("⚠️ El archivo CSV no contiene las columnas necesarias.")
 
