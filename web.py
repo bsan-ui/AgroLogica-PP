@@ -238,7 +238,7 @@ with tab2:
         # --- Gráfico comparativo de barras ---
         # Solo mostramos la gráfica química si el terreno pasó el filtro físico
         if nivel not in ["Riesgo físico", "Riesgo ambiental"]:
-            st.markdown("###Comparativa: Tu suelo vs. Requerimiento ideal")
+            st.markdown(f"###Comparativa: Tu suelo vs. Requerimiento ideal")
             
             # Diccionario base para extraer los ideales rápidamente
             ideales_grafica = {
