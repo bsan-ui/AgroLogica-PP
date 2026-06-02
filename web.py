@@ -121,7 +121,7 @@ with tab1:
             c3.metric("Riesgos detectados", f"{riesgos}")
             
             # --- Gráfico de distribución ---
-            st.markdown("###Resumen: ¿Cómo están nuestras tierras?")
+            st.markdown("### Resumen: ¿Cómo están nuestras tierras?")
             
             # Contamos cuántas parcelas hay de cada diagnóstico
             conteo_diagnostico = df_limpio['Diagnóstico_AgroLogica'].value_counts()
@@ -238,7 +238,7 @@ with tab2:
         # --- Gráfico comparativo de barras ---
         # Solo mostramos la gráfica química si el terreno pasó el filtro físico
         if nivel not in ["Riesgo físico", "Riesgo ambiental"]:
-            st.markdown(f"###Comparativa: Tu suelo vs. Requerimiento ideal")
+            st.markdown("### Comparativa: Tu suelo vs. Requerimiento ideal")
             
             # Diccionario base para extraer los ideales rápidamente
             ideales_grafica = {
