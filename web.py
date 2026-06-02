@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 # Configuración de página
 st.set_page_config(page_title="AgroLógica Pro", page_icon="🌱", layout="wide")
 
-st.title("🌱 Sistema AgroLógica")
+st.title("Sistema AgroLógica")
 st.markdown("Herramienta digital para el diagnóstico de la salud del suelo y optimización de cultivos.")
 st.divider()
 
-tab1, tab2 = st.tabs(["📊 Analizar todos mis terrenos", "🧪 Revisar un solo terreno"])
+tab1, tab2 = st.tabs(["Analizar todos mis terrenos", "Revisar un solo terreno"])
 
 # =====================================================================
 # Motor lógico: Analítica prescriptiva
@@ -17,9 +17,9 @@ tab1, tab2 = st.tabs(["📊 Analizar todos mis terrenos", "🧪 Revisar un solo 
 def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
     # Filtro físico
     if pendiente > 35.0 or str(erosion).lower() == "severa":
-        return "Riesgo Físico", "🚨 Riesgo de deslave: Inclinación o erosión crítica. Te sugerimos no invertir en químicos aquí."
+        return "Riesgo Físico", "Riesgo de deslave: Inclinación o erosión crítica. Te sugerimos no invertir en químicos aquí."
     if lluvia > 1000.0 and pendiente > 25.0:
-        return "Riesgo Ambiental", "⛈️ Riesgo de lavado hídrico: La pendiente y las altas lluvias deslavarán los fertilizantes."
+        return "Riesgo Ambiental", "Riesgo de lavado hídrico: La pendiente y las altas lluvias deslavarán los fertilizantes."
 
     cultivo = str(cultivo).lower().strip()
     ideales = {
@@ -54,16 +54,16 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
     if k > req["k_max"]: alertas_exceso_quimico.append(f"Potasio (+{round(k - req['k_max'], 1)})")
         
     # Salidas
-    if len(alertas_exceso_quimico) > 0: return "Exceso", "🚨 Peligro de toxicidad: " + ", ".join(alertas_exceso_quimico)
-    elif len(recomendaciones) == 0: return "Alta", "✅ El terreno tiene condiciones óptimas. No requiere ajustes químicos."
-    elif len(recomendaciones) <= 2: return "Media", "💡 Corregir: " + " | ".join(recomendaciones)
-    else: return "Baja", "⚠️ Nivelar: " + " | ".join(recomendaciones)
+    if len(alertas_exceso_quimico) > 0: return "Exceso", "Peligro de toxicidad: " + ", ".join(alertas_exceso_quimico)
+    elif len(recomendaciones) == 0: return "Alta", "El terreno tiene condiciones óptimas. No requiere ajustes químicos."
+    elif len(recomendaciones) <= 2: return "Media", "Corregir: " + " | ".join(recomendaciones)
+    else: return "Baja", "Nivelar: " + " | ".join(recomendaciones)
 
 # =====================================================================
 # Pestaña 1: Procesamiento masivo
 # =====================================================================
 with tab1:
-    st.header("🚜 Revisión de todas mis parcelas")
+    st.header("Revisión de todas mis parcelas")
     st.markdown("Sube tu documento con los datos de tus tierras para decirte qué cuidados exactos necesitan.")
     
     archivo_csv = st.file_uploader("Selecciona el archivo (.CSV)", type=["csv"])
@@ -74,18 +74,18 @@ with tab1:
         
         # Limpieza estadística
         df_limpio = df.fillna(df.median(numeric_only=True))
-        st.success("✅ El archivo se cargó correctamente.")
+        st.success("El archivo se cargó correctamente.")
         
         # --- Visualización de datos completos y limpieza ---
-        with st.expander("📋 Ver la lista de mis tierras y corrección automática de errores", expanded=False):
+        with st.expander("Ver la lista de mis tierras y corrección automática de errores", expanded=False):
             st.markdown("A veces olvidamos o no tenemos algún dato del campo. No te preocupes, si dejaste un espacio en blanco, el sistema lo rellena usando un cálculo seguro basado en tus otras tierras para que tu diagnóstico no falle.")
             
             c1, c2 = st.columns(2)
             with c1:
-                st.caption("📂 Tus datos originales (Con posibles espacios en blanco):")
+                st.caption("Tus datos originales (Con posibles espacios en blanco):")
                 st.dataframe(df, height=250, use_container_width=True)
             with c2:
-                st.caption("✨ Datos corregidos (Espacios vacíos rellenados por el sistema):")
+                st.caption("Datos corregidos (Espacios vacíos rellenados por el sistema):")
                 st.dataframe(df_limpio, height=250, use_container_width=True)
         # ------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ with tab1:
         
         if all(col in df_limpio.columns for col in cols_requeridas):
             st.divider()
-            st.subheader("🌱 Tu Plan de acción y fertilizantes")
+            st.subheader("Tu Plan de acción y fertilizantes")
             
             with st.spinner("Procesando matriz de datos..."):
                 df_limpio[['Diagnóstico_AgroLogica', 'Plan_de_acción']] = df_limpio.apply(
@@ -121,7 +121,7 @@ with tab1:
             c3.metric("Riesgos detectados", f"{riesgos}")
             
             # --- Gráfico de distribución ---
-            st.markdown("### 📊 Resumen: ¿Cómo están nuestras tierras?")
+            st.markdown("###Resumen: ¿Cómo están nuestras tierras?")
             
             # Contamos cuántas parcelas hay de cada diagnóstico
             conteo_diagnostico = df_limpio['Diagnóstico_AgroLogica'].value_counts()
@@ -164,12 +164,12 @@ with tab1:
             st.divider()
             # Descarga
             csv_export = df_limpio.to_csv(index=False).encode('utf-8')
-            st.download_button(label="📥 Descargar reporte de diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
+            st.download_button(label="Descargar reporte de diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
 
             st.divider()
             
              # --- Sección de procesos ---
-            with st.expander("🔬 Ver justificación matemática"):
+            with st.expander("Ver justificación matemática"):
                 cols_num = ['pH', 'Pendiente %', 'Materia orgánica %', 'Nitrógeno mg/kg']
                 
                 st.markdown("### 1. Estadística: Estandarización (Z-Score)")
@@ -197,17 +197,17 @@ with tab1:
                 st.latex(r"f'(x) = -0.10x + 7 = 0")
                 st.latex(r"-0.10x = -7 \implies x = \frac{-7}{-0.10} = 70 \text{ mg/kg}")
                 
-                st.info("💡 Este valor (70 mg/kg) se inyecta directamente en el motor lógico del software como la cota superior absoluta. Si el suelo supera este límite, el sistema bloquea las recomendaciones químicas para evitar el lavado hídrico.")
+                st.info("Este valor (70 mg/kg) se inyecta directamente en el motor lógico del software como la cota superior absoluta. Si el suelo supera este límite, el sistema bloquea las recomendaciones químicas para evitar el lavado hídrico.")
         else:
-            st.error("⚠️ El archivo CSV no contiene las columnas necesarias.")
+            st.error("El archivo CSV no contiene las columnas necesarias.")
 
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
 # =====================================================================
 with tab2:
-    st.header("🔎 Revisar un terreno paso a paso")
+    st.header("Revisar un terreno paso a paso")
     
-    st.subheader("🌍 1. ¿Cómo es el terreno y el clima?")
+    st.subheader("1. ¿Cómo es el terreno y el clima?")
     col1, col2, col3, col4 = st.columns(4)
     with col1: cultivo_input = st.selectbox("Cultivo a sembrar:", ["Maíz", "Frijol", "Nopal", "Aguacate"])
     with col2: erosion_input = st.selectbox("Nivel de erosión:", ["Leve", "Moderada", "Severa"])
@@ -216,7 +216,7 @@ with tab2:
 
     st.divider()
 
-    st.subheader("🧪 2. Resultados de tu estudio de tierra")
+    st.subheader("2. Resultados de tu estudio de tierra")
     col5, col6, col7, col8 = st.columns(4)
     with col5: ph_input = st.slider("Acidez (pH):", 0.0, 14.0, 6.5, step=0.1)
     with col6: n_input = st.number_input("Nitrógeno (mg/kg):", 0.0, 150.0, 30.0, step=1.0)
@@ -228,17 +228,17 @@ with tab2:
     if st.button("Obtener consejos para mi tierra", type="primary", use_container_width=True):
         nivel, mensaje = diagnostico_preciso(ph_input, mo_input, n_input, p_input, k_input, pendiente_input, erosion_input, lluvia_input, cultivo_input)
         
-        st.subheader("📢 Lo que tu tierra necesita:")
-        if nivel == "Alta": st.success(f"✨ **Fertilidad alta:** {mensaje}")
-        elif nivel == "Media": st.info(f"💡 **Fertilidad media:** {mensaje}")
-        elif nivel in ["Riesgo Físico", "Riesgo Ambiental"]: st.error(f"🏔️ **Terreno no apto:** {mensaje}")
-        elif nivel == "Exceso": st.error(f"☠️ **{mensaje}**")
-        else: st.warning(f"⚠️ **Atención requerida:** {mensaje}")
+        st.subheader("Lo que tu tierra necesita:")
+        if nivel == "Alta": st.success(f"**Fertilidad alta:** {mensaje}")
+        elif nivel == "Media": st.info(f"**Fertilidad media:** {mensaje}")
+        elif nivel in ["Riesgo Físico", "Riesgo Ambiental"]: st.error(f"**Terreno no apto:** {mensaje}")
+        elif nivel == "Exceso": st.error(f"**{mensaje}**")
+        else: st.warning(f"**Atención requerida:** {mensaje}")
         
         # --- Gráfico comparativo de barras ---
         # Solo mostramos la gráfica química si el terreno pasó el filtro físico
         if nivel not in ["Riesgo físico", "Riesgo ambiental"]:
-            st.markdown("### 📊 Comparativa: Tu suelo vs. Requerimiento ideal")
+            st.markdown("###Comparativa: Tu suelo vs. Requerimiento ideal")
             
             # Diccionario base para extraer los ideales rápidamente
             ideales_grafica = {
@@ -293,4 +293,8 @@ with tab2:
             fig2.tight_layout()
             
             # Renderizamos con fondo transparente
-            st.pyplot(fig2, transparent=True)
+            col_izq, col_centro, col_der = st.columns([1, 2, 1])
+
+            with col_centro:
+                st.pyplot(fig2, use_container_width=True, transparent=True)
+           
