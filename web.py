@@ -168,7 +168,11 @@ with tab1:
 
             st.divider()
 
-            with st.expander("### Calculos realizados"):
+            with st.expander("Calculos realizados"):
+                cols_num=['pH', 'Pendiente %', 'Materia orgánica %', 'Nitrogeno mg/kg']
+                st.markdown("### 1.Estadística")
+                df_std=(df_limpio[cols_num]-df_limpio[cols_num].mean())/df_limpio[cols_num].std()
+                st.write(df_std.head(3))
         
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
