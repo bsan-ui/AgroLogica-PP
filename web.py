@@ -166,41 +166,7 @@ with tab1:
             csv_export = df_limpio.to_csv(index=False).encode('utf-8')
             st.download_button(label="Descargar reporte de diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
 
-            st.divider()
-            
-             # --- Sección de procesos ---
-            with st.expander("Ver justificación matemática"):
-                cols_num = ['pH', 'Pendiente %', 'Materia orgánica %', 'Nitrógeno mg/kg']
-                
-                st.markdown("### 1. Estadística: Estandarización (Z-Score)")
-                df_std = (df_limpio[cols_num] - df_limpio[cols_num].mean()) / df_limpio[cols_num].std()
-                st.write(df_std.head(3))
-                
-                st.markdown("### 2. Álgebra Lineal: Sustracción y cálculo de déficit")
-                st.markdown("Se modelan las parcelas como una matriz $A$. Se resta el vector ideal $B$ (ej. requerimientos del Maíz) para obtener la matriz de decisión $D$, donde valores negativos indican deficiencia y positivos indican superávit o riesgo de toxicidad.")
-                st.latex(r"D = A - B")
-                
-                # Ejemplo de álgebra matricial real con los datos
-                cols_matriz = ['pH', 'Materia orgánica %', 'Nitrógeno mg/kg', 'Fósforo mg/kg', 'Potasio mg/kg']
-                vector_ideal = np.array([6.5, 3.0, 30.0, 15.0, 150.0]) # Perfil del maíz
-                
-                df_matriz = df_limpio[cols_matriz].head(5) # Tomamos 5 parcelas de ejemplo
-                df_resultado = df_matriz - vector_ideal
-                st.write("**Matriz Resultante $D$ (Muestra de las primeras 5 parcelas):**")
-                st.dataframe(df_resultado)
-                
-                st.markdown("### 3. Cálculo diferencial: Modelado analítico y optimización")
-                st.markdown("La respuesta del rendimiento agrícola frente a la adición de Nitrógeno no es lineal, sino parabólica. Se modela la función de rendimiento $f(x)$ para encontrar el límite biológico de saturación:")
-                st.latex(r"f(x) = -0.05x^2 + 7x + 10")
-                
-                st.markdown("Para maximizar la eficiencia y evitar toxicidad, se calcula la primera derivada y se iguala a cero (punto crítico):")
-                st.latex(r"f'(x) = -0.10x + 7 = 0")
-                st.latex(r"-0.10x = -7 \implies x = \frac{-7}{-0.10} = 70 \text{ mg/kg}")
-                
-                st.info("Este valor (70 mg/kg) se inyecta directamente en el motor lógico del software como la cota superior absoluta. Si el suelo supera este límite, el sistema bloquea las recomendaciones químicas para evitar el lavado hídrico.")
-        else:
-            st.error("El archivo CSV no contiene las columnas necesarias.")
-
+        
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
 # =====================================================================
