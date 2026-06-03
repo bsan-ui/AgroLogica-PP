@@ -166,6 +166,9 @@ with tab1:
             csv_export = df_limpio.to_csv(index=False).encode('utf-8')
             st.download_button(label="Descargar reporte de diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
 
+            st.divider()
+
+            with st.expander("### Calculos realizados")
         
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
