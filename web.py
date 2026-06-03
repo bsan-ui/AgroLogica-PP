@@ -168,7 +168,7 @@ with tab1:
 
             st.divider()
 
-            with st.expander("### Calculos realizados")
+            with st.expander("### Calculos realizados"):
         
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
