@@ -165,14 +165,6 @@ with tab1:
             # Descarga
             csv_export = df_limpio.to_csv(index=False).encode('utf-8')
             st.download_button(label="Descargar reporte de diagnóstico (.CSV)", data=csv_export, file_name="Reporte_AgroLogica_Resultados.csv", mime="text/csv", type="secondary")
-
-            st.divider()
-
-            with st.expander("Calculos realizados"):
-                c_num=['pH', 'Pendiente %', 'Materia orgánica %', 'Nitrogeno mg/kg']
-                st.markdown("### 1.Estadística")
-                df_std=(df_limpio[c_num]-df_limpio[c_num].mean())/df_limpio[c_num].std()
-                st.write(df_std.head(3))
         
 # =====================================================================
 # Pestaña 2: Diagnóstico manual
