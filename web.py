@@ -226,9 +226,9 @@ with tab2:
     min_value=0.0, max_value=100.0, value=3.0,
     help="Proporción de residuos vegetales y animales descompuestos en la tierra.\n\n"
          "¿Cómo calcularlo?: El porcentaje exacto se obtiene mediante un análisis de laboratorio del suelo. Sin embargo, de forma visual y empírica:\n\n"
-         "• Suelos negros, húmedos y esponjosos: Suelen tener niveles óptimos (> 3%).\n\n"
-         "• Suelos pardos o café claro: Niveles medios (1.5% - 3%).\n\n"
-         "• Suelos pálidos, secos o arenosos: Niveles muy bajos (< 1.5%).\n\n"
+         "• Suelos negros, húmedos y esponjosos: Suelen tener niveles óptimos (más del 3%).\n\n"
+         "• Suelos pardos o café claro: Niveles medios (entre 1.5% y 3%).\n\n"
+         "• Suelos pálidos, secos o arenosos: Niveles muy bajos (menos del 1.5%).\n\n"
          "Clasificación fundamentada en los parámetros de fertilidad de la Norma Oficial Mexicana (NOM-021-SEMARNAT-2000)."
 )
         
