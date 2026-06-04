@@ -96,7 +96,7 @@ with tab1:
 
 # 3. Crear el botón de descarga nativo de Streamlit
     st.download_button(
-    label="📥 Descargar plantilla de captura",
+    label="Descargar plantilla de captura",
     data=csv_plantilla,
     file_name="Plantilla_Suelo_Inteligente.csv",
     mime="text/csv",
