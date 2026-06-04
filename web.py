@@ -185,7 +185,11 @@ with tab2:
     st.subheader("1. ¿Cómo es el terreno y el clima?")
     col1, col2, col3, col4 = st.columns(4)
     with col1: cultivo_input = st.selectbox("Cultivo a sembrar:", ["Maíz", "Frijol", "Nopal", "Aguacate"])
-    with col2: erosion_input = st.selectbox("Nivel de erosión:", ["Leve", "Moderada", "Severa"])
+    with col2: erosion_input =st.selectbox(
+    "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
+    help="• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
+         "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
+         "• Severa: Cárcavas profundas, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
     with col3: pendiente_input = st.number_input("Pendiente (%):", 0.0, 90.0, 10.0, step=1.0)
     with col4: lluvia_input = st.number_input("Lluvia anual (mm):", 0.0, 3000.0, 750.0, step=10.0)
 
