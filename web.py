@@ -204,8 +204,8 @@ with tab2:
         st.markdown("**Lluvia anual (mm)** <a href='https://smn.conagua.gob.mx/es/climatologia/temperaturas-y-lluvias/resumenes-mensuales-de-temperaturas-y-lluvias' target='_blank' style='font-size:0.85em; text-decoration:none;'>🌐 Consultar SMN</a>", unsafe_allow_html=True)
         lluvia_input =st.number_input(
         "Precipitación acumulada",
-        min_value=0.0, max_value=5000.0, value=850.0,
-        label_visibility="collapsed", # Oculta la etiqueta por defecto para usar la personalizada con enlace
+        min_value=0.0, max_value=5000.0, value=700.0,
+        label_visibility="collapsed",
         help="Introduzca el volumen de precipitación media anual en milímetros (mm). El Servicio Meteorológico Nacional proporciona los históricos oficiales por región."
     )
 
