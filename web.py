@@ -187,11 +187,27 @@ with tab2:
     with col1: cultivo_input = st.selectbox("Cultivo a sembrar:", ["Maíz", "Frijol", "Nopal", "Aguacate"])
     with col2: erosion_input =st.selectbox(
     "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
-    help="• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
+    help="Clasificación técnica para la evaluación de la degradación de tierras agrícolas adaptada de las directrices de la FAO (2017).\n\n"
+         "• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
          "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
          "• Severa: socavón, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
-    with col3: pendiente_input = st.number_input("Pendiente (%):", 0.0, 90.0, 10.0, step=1.0)
-    with col4: lluvia_input = st.number_input("Lluvia anual (mm):", 0.0, 3000.0, 750.0, step=10.0)
+        
+    with col3: pendiente_input = st.number_input(
+        "Pendiente del terreno (%)",
+        min_value=0.0, max_value=100.0, value=15.0,
+        help="Métrica topográfica estandarizada basada en el Manual de Conservación de Suelos y Agua (SEMARNAT, 2002).\n\n"
+             "Representa la relación porcentual entre la altura ganada y la distancia horizontal recorrida. "
+             "¿Cómo calcularlo de forma simple?: Si en una distancia horizontal de 10 metros el terreno sube 2 metros de altura, su pendiente es del 20% (2 dividido entre 10, multiplicado por 100)
+    )
+        
+    with col4: 
+        st.markdown("**Lluvia anual (mm)** <a href='https://smn.conagua.gob.mx/' target='_blank' style='font-size:0.85em; text-decoration:none;'>🌐 Consultar SMN</a>", unsafe_allow_html=True)
+        lluvia_input =st.number_input(
+        "Precipitación acumulada",
+        min_value=0.0, max_value=5000.0, value=850.0,
+        label_visibility="collapsed", # Oculta la etiqueta por defecto para usar la personalizada con enlace
+        help="Introduzca el volumen de precipitación media anual en milímetros (mm). El Servicio Meteorológico Nacional proporciona los históricos oficiales por región."
+    )
 
     st.divider()
 
