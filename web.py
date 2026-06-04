@@ -200,7 +200,7 @@ with tab2:
              "¿Cómo calcularlo de forma simple?: Si en una distancia horizontal de 10 metros el terreno sube 2 metros de altura, su pendiente es del 20% (2 dividido entre 10, multiplicado por 100)"
     )
         
-    with col4: st.markdown("**Lluvia anual (mm)** <a href='https://smn.conagua.gob.mx/es/climatologia/temperaturas-y-lluvias/resumenes-mensuales-de-temperaturas-y-lluvias' target='_blank' style='font-size:0.85em; text-decoration:none;'>🌐 Consultar SMN</a>", unsafe_allow_html=True)
+    with col4: st.markdown("**Lluvia anual (mm)** <a href='https://smn.conagua.gob.mx/es/climatologia/temperaturas-y-lluvias/resumenes-mensuales-de-temperaturas-y-lluvias' target='_blank' style='font-size:0.85em; text-decoration:none;'>🌐 Consultar SMN</a>", unsafe_allow_html=True),
         lluvia_input =st.number_input(
         "Precipitación acumulada",
         min_value=0.0, max_value=5000.0, value=850.0,
