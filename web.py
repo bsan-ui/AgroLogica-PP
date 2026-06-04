@@ -64,6 +64,8 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
 # =====================================================================
 with tab1:
     st.header("Revisión de todas mis parcelas")
+    st.markdown("[Haz click aquí para descargar la plantilla oficial en formato CSV](https://docs.google.com/spreadsheets/d/1VYgobkY6bZEB2BNXr6d9IsXMkz-RiYd2t4QBEzNg9Hs/edit?gid=0#gid=0) con la estructura de columnas exactas que requiere el sistema")
+    
     st.markdown("Sube tu documento con los datos de tus tierras para decirte qué cuidados exactos necesitan.")
     
     archivo_csv = st.file_uploader("Selecciona el archivo (.CSV)", type=["csv"])
