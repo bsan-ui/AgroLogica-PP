@@ -197,7 +197,7 @@ with tab2:
         min_value=0.0, max_value=100.0, value=15.0,
         help="Métrica topográfica estandarizada basada en el Manual de Conservación de Suelos y Agua (SEMARNAT, 2002).\n\n"
              "Representa la relación porcentual entre la altura ganada y la distancia horizontal recorrida. "
-             "¿Cómo calcularlo de forma simple?: Si en una distancia horizontal de 10 metros el terreno sube 2 metros de altura, su pendiente es del 20% (2 dividido entre 10, multiplicado por 100)
+             "¿Cómo calcularlo de forma simple?: Si en una distancia horizontal de 10 metros el terreno sube 2 metros de altura, su pendiente es del 20% (2 dividido entre 10, multiplicado por 100)"
     )
         
     with col4: 
