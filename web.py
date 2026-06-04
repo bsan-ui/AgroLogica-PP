@@ -6,15 +6,20 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="AgroLógica Pro", page_icon="🌱", layout="wide")
 
 st.title("Sistema AgroLógica")
+
 with st.sidebar:
-    st.markdown("## 🌍 Compromiso con los ODS")
+    st.markdown("## El Efecto Dominó (ODS)")
     st.markdown(
-        "Este modelo para la clasificación de fertilidad agrícola contribuye activamente a los Objetivos de Desarrollo Sostenible (ODS) de la Agenda 2030:\n\n"
-        "* **ODS 12: Producción y consumo responsables.** Al calcular el déficit exacto mediante sustracción vectorial, optimiza la dosificación de fertilizantes N-P-K, evitando la compra e introducción injustificada de agroquímicos.\n\n"
-        "* **ODS 13: Acción por el clima.** Incorpora restricciones físicas y climáticas que alertan sobre riesgos de lavado hídrico y escorrentía, previniendo daños en zonas vulnerables.\n\n"
-        "* **ODS 15: Vida de ecosistemas terrestres.** Protege activamente el suelo de conservación de San Bernabé Ocotepec, mitigando la degradación química y deteniendo la contaminación por lixiviación hacia la cuenca hídrica."
+        "El modelo **Suelo Inteligente** interviene tecnológicamente para frenar la degradación territorial en San Bernabé Ocotepec, transformando un riesgo latente en un ciclo de impacto positivo. "
+        "Todo comienza con la **Producción y consumo responsables (ODS 12)**: al prescribir la dosis exacta de insumos mediante el algoritmo, se elimina el desperdicio químico y los costos ciegos. "
+        "Esta precisión frena la sobre-fertilización, deteniendo la pérdida de suelo fértil y protegiendo directamente la vida de los **Ecosistemas terrestres (ODS 15)**. "
+        "A su vez, mantener un entorno sano garantiza cosechas eficientes que aseguran la rentabilidad agrícola y el sustento de las familias, fomentando el **Trabajo decente y crecimiento económico (ODS 8)**. "
+        "Finalmente, esta viabilidad financiera del campo evita que los agricultores se vean empujados a vender sus tierras, frenando el avance destructivo de la mancha urbana y salvaguardando el desarrollo de verdaderas **Ciudades y comunidades sostenibles (ODS 11)**."
     )
+    st.markdown("---")
+    
 st.markdown("Herramienta digital para el diagnóstico de la salud del suelo y optimización de cultivos.")
+
 st.divider()
 
 tab1, tab2 = st.tabs(["Analizar todos mis terrenos", "Revisar un solo terreno"])
