@@ -77,8 +77,31 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
 # =====================================================================
 with tab1:
     st.header("Revisión de todas mis parcelas")
-    st.markdown("[Descarga la plantilla](https://docs.google.com/spreadsheets/d/1VYgobkY6bZEB2BNXr6d9IsXMkz-RiYd2t4QBEzNg9Hs/edit?gid=0#gid=0) con la estructura de columnas exactas que requiere el sistema")
     
+    plantilla = pd.DataFrame(columns=[
+    "Parcela", 
+    "pH", 
+    "Grado de erosión", 
+    "Pendiente %", 
+    "Materia orgánica %", 
+    "Lluvia mm", 
+    "Fósforo mg/kg", 
+    "Nitrógeno mg/kg", 
+    "Potasio mg/kg", 
+    "Cosecha principal"
+])
+
+# 2. Convertir el DataFrame a formato CSV en memoria (usando utf-8 para respetar los acentos)
+    csv_plantilla = plantilla.to_csv(index=False).encode('utf-8')
+
+# 3. Crear el botón de descarga nativo de Streamlit
+    st.download_button(
+    label="📥 Descargar plantilla de captura",
+    data=csv_plantilla,
+    file_name="Plantilla_Suelo_Inteligente.csv",
+    mime="text/csv",
+    help="Descarga este archivo CSV, llénalo con los datos de tus parcelas (puedes usar Excel) y súbelo nuevamente al sistema."
+)
     st.markdown("Sube tu documento con los datos de tus tierras para decirte qué cuidados exactos necesitan.")
     
     archivo_csv = st.file_uploader("Selecciona el archivo (.CSV)", type=["csv"])
