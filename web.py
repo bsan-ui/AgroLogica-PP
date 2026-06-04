@@ -273,3 +273,14 @@ with tab2:
             with col_centro:
                 st.pyplot(fig2, use_container_width=True, transparent=True)
            
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; color: #888888; font-size: 0.85em; padding-top: 20px;'>"
+    "© 2026 Proyecto Académico Integrador — Problema Prototípico<br>"
+    "Licenciatura en Ciencia de Datos para Negocios | Universidad Nacional Rosario Castellanos<br>"
+    "Unidad Académica Magdalena Contreras<br><br>"
+    "<b>Autores:</b> Nancy Citlali Valenzuela Barron, Jonatan Adrián Zamora Eslava, "
+    "Christian Itankael Vargas Jaramillo, Brandon Sánchez Flores."
+    "</div>",
+    unsafe_allow_html=True
+)
