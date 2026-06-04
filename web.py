@@ -221,7 +221,16 @@ with tab2:
     with col6: n_input = st.number_input("Nitrógeno (mg/kg):", 0.0, 150.0, 30.0, step=1.0)
     with col7: p_input = st.number_input("Fósforo (mg/kg):", 0.0, 150.0, 15.0, step=1.0)
     with col8: k_input = st.number_input("Potasio (mg/kg):", 0.0, 300.0, 150.0, step=1.0)
-    mo_input = st.number_input("Materia orgánica (%):", 0.0, 15.0, 3.0, step=0.1)
+    mo_input = st.number_input(
+    "Materia orgánica (%)",
+    min_value=0.0, max_value=100.0, value=3.0,
+    help="Proporción de residuos vegetales y animales descompuestos en la tierra.\n\n"
+         "¿Cómo calcularlo?: El porcentaje exacto se obtiene mediante un análisis de laboratorio edafológico. Sin embargo, de forma visual y empírica:\n"
+         "• Suelos negros, húmedos y esponjosos: Suelen tener niveles óptimos (> 3%).\n"
+         "• Suelos pardos o café claro: Niveles medios (1.5% - 3%).\n"
+         "• Suelos pálidos, secos o arenosos: Niveles muy bajos (< 1.5%).\n\n"
+         "Clasificación fundamentada en los parámetros de fertilidad de la Norma Oficial Mexicana (NOM-021-SEMARNAT-2000)."
+)
         
     st.markdown(" ")
     if st.button("Obtener consejos para mi tierra", type="primary", use_container_width=True):
