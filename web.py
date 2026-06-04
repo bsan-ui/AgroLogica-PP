@@ -186,11 +186,11 @@ with tab2:
     col1, col2, col3, col4 = st.columns(4)
     with col1: cultivo_input = st.selectbox("Cultivo a sembrar:", ["Maíz", "Frijol", "Nopal", "Aguacate"])
     with col2: erosion_input =st.selectbox(
-    "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
-    help="Clasificación técnica para la evaluación de la degradación de tierras agrícolas adaptada de las directrices de la FAO (2017).\n\n"
-         "• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
-         "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
-         "• Severa: socavón, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
+        "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
+        help="Clasificación técnica para la evaluación de la degradación de tierras agrícolas adaptada de las directrices de la FAO (2017).\n\n"
+             "• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
+             "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
+             "• Severa: socavón, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
         
     with col3: pendiente_input = st.number_input(
         "Pendiente del terreno (%)",
