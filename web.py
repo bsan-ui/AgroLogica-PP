@@ -6,6 +6,14 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="AgroLógica Pro", page_icon="🌱", layout="wide")
 
 st.title("Sistema AgroLógica")
+with st.sidebar:
+    st.markdown("## 🌍 Compromiso con los ODS")
+    st.markdown(
+        "Este modelo para la clasificación de fertilidad agrícola contribuye activamente a los Objetivos de Desarrollo Sostenible (ODS) de la Agenda 2030:\n\n"
+        "* **ODS 12: Producción y consumo responsables.** Al calcular el déficit exacto mediante sustracción vectorial, optimiza la dosificación de fertilizantes N-P-K, evitando la compra e introducción injustificada de agroquímicos.\n\n"
+        "* **ODS 13: Acción por el clima.** Incorpora restricciones físicas y climáticas que alertan sobre riesgos de lavado hídrico y escorrentía, previniendo daños en zonas vulnerables.\n\n"
+        "* **ODS 15: Vida de ecosistemas terrestres.** Protege activamente el suelo de conservación de San Bernabé Ocotepec, mitigando la degradación química y deteniendo la contaminación por lixiviación hacia la cuenca hídrica."
+    )
 st.markdown("Herramienta digital para el diagnóstico de la salud del suelo y optimización de cultivos.")
 st.divider()
 
