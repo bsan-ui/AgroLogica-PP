@@ -189,7 +189,7 @@ with tab2:
     "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
     help="• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
          "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
-         "• Severa: Cárcavas profundas, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
+         "• Severa: socavón, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
     with col3: pendiente_input = st.number_input("Pendiente (%):", 0.0, 90.0, 10.0, step=1.0)
     with col4: lluvia_input = st.number_input("Lluvia anual (mm):", 0.0, 3000.0, 750.0, step=10.0)
 
