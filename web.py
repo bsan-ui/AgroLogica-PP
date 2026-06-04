@@ -205,8 +205,7 @@ with tab2:
         lluvia_input =st.number_input(
         "Precipitación acumulada",
         min_value=0.0, max_value=5000.0, value=700.0,
-        label_visibility="collapsed",
-        help="Introduzca el volumen de precipitación media anual en milímetros (mm). El Servicio Meteorológico Nacional proporciona los históricos oficiales por región."
+        label_visibility="collapsed"
     )
 
     st.divider()
