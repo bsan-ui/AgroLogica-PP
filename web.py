@@ -188,15 +188,15 @@ with tab2:
     with col2: erosion_input =st.selectbox(
         "Nivel de erosión del suelo", ["Leve", "Moderada", "Severa"],
         help="Clasificación técnica para la evaluación de la degradación de tierras agrícolas adaptada de las directrices de la FAO (2017).\n\n"
-             "• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n"
-             "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n"
+             "• Leve: Pérdida casi imperceptible de la capa superficial del terreno.\n\n"
+             "• Moderada: Presencia de pequeñas zanjas o surcos visibles provocados por el agua o viento.\n\n"
              "• Severa: socavón, raíces expuestas y pérdida evidente de la capa de suelo fértil.")
         
     with col3: pendiente_input = st.number_input(
         "Pendiente del terreno (%)",
         min_value=0.0, max_value=100.0, value=15.0,
         help="Métrica topográfica estandarizada basada en el Manual de Conservación de Suelos y Agua (SEMARNAT, 2002).\n\n"
-             "Representa la relación porcentual entre la altura ganada y la distancia horizontal recorrida. "
+             "Representa la relación porcentual entre la altura ganada y la distancia horizontal recorrida.\n\n "
              "¿Cómo calcularlo de forma simple?: Si en una distancia horizontal de 10 metros el terreno sube 2 metros de altura, su pendiente es del 20% (2 dividido entre 10, multiplicado por 100)"
     )
         
