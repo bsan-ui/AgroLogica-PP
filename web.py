@@ -3,14 +3,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 # Configuración de página
-st.set_page_config(page_title="AgroLógica Pro", page_icon="🌱", layout="wide")
+st.set_page_config(page_title="AgroLógica", page_icon="🌱", layout="wide")
 
-st.title("Sistema AgroLógica")
+st.title("AgroLógica")
 
 with st.sidebar:
     st.markdown("## El Efecto Dominó (ODS)")
     st.markdown(
-        "El modelo **Suelo Inteligente** interviene tecnológicamente para frenar la degradación territorial en San Bernabé Ocotepec, transformando un riesgo latente en un ciclo de impacto positivo. "
+        "El modelo **AgroLógica** interviene tecnológicamente para frenar la degradación territorial en San Bernabé Ocotepec, transformando un riesgo latente en un ciclo de impacto positivo. "
         "Todo comienza con la **Producción y consumo responsables (ODS 12)**: al prescribir la dosis exacta de insumos mediante el algoritmo, se elimina el desperdicio químico y los costos ciegos. "
         "Esta precisión frena la sobre-fertilización, deteniendo la pérdida de suelo fértil y protegiendo directamente la vida de los **Ecosistemas terrestres (ODS 15)**. "
         "A su vez, mantener un entorno sano garantiza cosechas eficientes que aseguran la rentabilidad agrícola y el sustento de las familias, fomentando el **Trabajo decente y crecimiento económico (ODS 8)**. "
