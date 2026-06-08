@@ -77,7 +77,7 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
 with tab1:
     st.header("Revisión de todas mis parcelas")
     
-   plantilla = pd.DataFrame(columns=[
+    plantilla = pd.DataFrame(columns=[
         "Parcela", 
         "pH", 
         "Grado de erosion", 
@@ -88,7 +88,7 @@ with tab1:
         "Nitrogeno mg/kg", 
         "Potasio mg/kg", 
         "Cosecha principal"
-        ])
+    ])
 
     # Se usa utf-8-sig para forzar a las apps de celular y a Excel a leer el archivo correctamente
     csv_plantilla = plantilla.to_csv(index=False).encode('utf-8-sig')
