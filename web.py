@@ -265,66 +265,78 @@ with tab2:
         elif nivel == "Exceso": st.error(f"**{mensaje}**")
         else: st.warning(f"**Atención requerida:** {mensaje}")
         
-        # --- Gráfico comparativo de barras ---
+      # --- Gráfico comparativo de barras ---
         # Solo mostramos la gráfica química si el terreno pasó el filtro físico
-        if nivel not in ["Riesgo físico", "Riesgo ambiental"]:
-            st.markdown("### Comparativa: Tu suelo vs. Requerimiento ideal")
+        if nivel not in ["Riesgo Físico", "Riesgo Ambiental"]:
+            st.markdown("### Comparativa: Tu suelo vs. Intervalo de Seguridad")
             
-            # Diccionario base para extraer los ideales rápidamente
+            # Diccionario con mínimos y máximos para crear los intervalos
             ideales_grafica = {
-                "maíz": {"n": 30.0, "p": 15.0, "k": 150.0},
-                "frijol": {"n": 15.0, "p": 12.0, "k": 120.0},
-                "nopal": {"n": 10.0, "p": 10.0, "k": 100.0},
-                "aguacate": {"n": 20.0, "p": 20.0, "k": 150.0}
+                "maíz": {"n_min": 30.0, "n_max": 70.0, "p_min": 15.0, "p_max": 50.0, "k_min": 150.0, "k_max": 250.0},
+                "frijol": {"n_min": 15.0, "n_max": 40.0, "p_min": 12.0, "p_max": 35.0, "k_min": 120.0, "k_max": 200.0},
+                "nopal": {"n_min": 10.0, "n_max": 30.0, "p_min": 10.0, "p_max": 30.0, "k_min": 100.0, "k_max": 180.0},
+                "aguacate": {"n_min": 20.0, "n_max": 60.0, "p_min": 20.0, "p_max": 60.0, "k_min": 150.0, "k_max": 300.0}
             }
             
             cultivo_key = cultivo_input.lower()
             if cultivo_key not in ideales_grafica: cultivo_key = "maíz"
             
-            ideal_n = ideales_grafica[cultivo_key]["n"]
-            ideal_p = ideales_grafica[cultivo_key]["p"]
-            ideal_k = ideales_grafica[cultivo_key]["k"]
+            req_grafica = ideales_grafica[cultivo_key]
+            mins = [req_grafica["n_min"], req_grafica["p_min"], req_grafica["k_min"]]
+            maxs = [req_grafica["n_max"], req_grafica["p_max"], req_grafica["k_max"]]
+            
+            # Calculamos la "altura" del bloque flotante restando el max menos el min
+            alturas_rango = [maxs[i] - mins[i] for i in range(3)]
             
             # Datos para la gráfica
             etiquetas = ['Nitrógeno (N)', 'Fósforo (P)', 'Potasio (K)']
             valores_actuales = [n_input, p_input, k_input]
-            valores_ideales = [ideal_n, ideal_p, ideal_k]
             
             x = np.arange(len(etiquetas))
             ancho_barra = 0.35
             
             fig2, ax2 = plt.subplots(figsize=(8, 4))
-            barras_actuales = ax2.bar(x - ancho_barra/2, valores_actuales, ancho_barra, label='Tu Parcela', color='#17a2b8')
-            barras_ideales = ax2.bar(x + ancho_barra/2, valores_ideales, ancho_barra, label=f'Ideal ({cultivo_input})', color='#28a745')
             
-            # Definimos el color Gris Neutro para que funcione en Modo Claro y Oscuro
+            # 1. Barra sólida: La parcela del usuario
+            barras_actuales = ax2.bar(x - ancho_barra/2, valores_actuales, ancho_barra, label='Tu Parcela', color='#17a2b8')
+            
+            # 2. Barra flotante: El rango de seguridad (empieza en 'bottom=mins')
+            barras_ideales = ax2.bar(x + ancho_barra/2, alturas_rango, ancho_barra, bottom=mins, 
+                                     label=f'Zona Segura ({cultivo_input})', 
+                                     color='#28a745', alpha=0.4, edgecolor='#28a745', linewidth=2, hatch='//')
+            
+            # Definimos el color Gris Neutro para Modo Claro y Oscuro
             color_texto = '#808080'
             
             # Aplicamos el color a todos los elementos del contorno
             ax2.set_ylabel('Concentración (mg/kg)', color=color_texto, weight='bold')
-            ax2.set_title('Análisis de macronutrientes (NPK)', color=color_texto, weight='bold')
+            ax2.set_title('Análisis de macronutrientes: Niveles vs Intervalo Óptimo', color=color_texto, weight='bold')
             ax2.set_xticks(x)
             ax2.set_xticklabels(etiquetas, color=color_texto, weight='bold')
             ax2.tick_params(axis='y', colors=color_texto)
             
-            # Aplicamos el color al texto de la leyenda
+            # Leyenda
             leyenda = ax2.legend()
             for text in leyenda.get_texts():
                 text.set_color(color_texto)
                 
-            # Aplicamos el color a los bordes de la gráfica (las espinas)
+            # Color a los bordes de la gráfica
             for spine in ax2.spines.values():
                 spine.set_edgecolor(color_texto)
             
-            # Añadimos los números encima de las barras también en gris
+            # Etiquetas numéricas para la barra del usuario
             ax2.bar_label(barras_actuales, padding=3, color=color_texto, weight='bold')
-            ax2.bar_label(barras_ideales, padding=3, color=color_texto, weight='bold')
+            
+            # Etiquetas numéricas personalizadas para el Rango (Ej: "30 - 70")
+            for i in range(len(mins)):
+                # Colocamos el texto justo arriba del límite máximo del rango
+                ax2.text(x[i] + ancho_barra/2, maxs[i] + 5, f"[{mins[i]} - {maxs[i]}]", 
+                         ha='center', va='bottom', color='#28a745', weight='bold', fontsize=9)
             
             fig2.tight_layout()
             
             # Renderizamos con fondo transparente
             col_izq, col_centro, col_der = st.columns([1, 2, 1])
-
             with col_centro:
                 st.pyplot(fig2, use_container_width=True, transparent=True)
            
