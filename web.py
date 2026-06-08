@@ -240,10 +240,27 @@ with tab2:
 
     st.subheader("2. Resultados de tu estudio de tierra")
     col5, col6, col7, col8 = st.columns(4)
-    with col5: ph_input = st.slider("Acidez (pH):", 0.0, 14.0, 6.5, step=0.1)
-    with col6: n_input = st.number_input("Nitrógeno (mg/kg):", 0.0, 150.0, 30.0, step=1.0)
-    with col7: p_input = st.number_input("Fósforo (mg/kg):", 0.0, 150.0, 15.0, step=1.0)
-    with col8: k_input = st.number_input("Potasio (mg/kg):", 0.0, 300.0, 150.0, step=1.0)
+    with col5: ph_input = st.slider("Acidez (pH):", 0.0, 14.0, 6.5, step=0.1, 
+                                   help="ESTIMACIÓN VISUAL: Observa la tierra y las plantas silvestres que crecen solas. \n\n"
+     "- Si en tu parcela abunda el musgo, helechos, hojas de pino (ocochal) o la tierra es muy húmeda y oscura: tu suelo tiende a ser ácido. Ingresa un valor bajo (5.0 a 6.0).\n\n"
+     "- Si al escarbar encuentras muchas lombrices, la tierra huele a bosque fresco y se desmorona fácil en tu mano: es un suelo neutro y sano. Ingresa el valor ideal (6.5 a 7.0).\n\n"
+     "- Si al secarse la tierra se hace dura como piedra, notas costras blanquecinas en la superficie (salitre) o el agua se encharca mucho: tu suelo es alcalino. Ingresa un valor alto (7.5 a 8.0).")
+    with col6: n_input = st.number_input("Nitrógeno (mg/kg):", 0.0, 150.0, 30.0, step=1.0,
+                                        help="ESTIMACIÓN VISUAL: Observa las hojas más viejas de tus cultivos. \n\n"
+     "- Si están amarillentas y la planta crece lento: tu suelo es pobre. Ingresa un valor bajo (10 a 20).\n\n"
+     "- Si las hojas son de un verde normal y el crecimiento es constante: tu nivel es bueno. Ingresa un valor medio (30 a 40).\n\n"
+     "- Si el verde es muy oscuro o acabas de aplicar estiércol/urea hace poco: tienes niveles altos. Ingresa un valor superior (50 a 60).")
+        
+    with col7: p_input = st.number_input("Fósforo (mg/kg):", 0.0, 150.0, 15.0, step=1.0,
+                                        help="ESTIMACIÓN VISUAL: Fíjate en el desarrollo de raíces y flores. \n\n"
+     "- Si a la planta le cuesta enraizar, da pocos frutos, o notas tonos morados/rojizos en los tallos: te falta fósforo. Ingresa un valor bajo (5 a 15).\n\n"
+     "- Si tus plantas florecen bien y la cosecha se desarrolla a tiempo: el suelo está sano. Ingresa un valor medio (20 a 30).\n\n"
+     "- Si fertilizaste con súper fosfato en la última siembra, pon un valor alto (35 a 45).")
+    with col8: k_input = st.number_input("Potasio (mg/kg):", 0.0, 300.0, 150.0, step=1.0, 
+                                        help="ESTIMACIÓN VISUAL: Revisa los bordes de las hojas y la fuerza del tallo. \n\n"
+     "- Si los bordes de las hojas se ven secos o 'quemados' (color marrón) y los tallos se doblan fácil: hay deficiencia. Ingresa un valor bajo (10 a 20).\n\n"
+     "- Si tus plantas resisten bien las plagas, los tallos son gruesos y el clima no las marchita tan rápido: el nivel es ideal. Ingresa un valor medio (25 a 35).\n\n"
+     "- Si usaste fertilizantes potásicos o ceniza de madera recientemente, ingresa un valor alto (40 a 50).")
     mo_input = st.number_input(
     "Materia orgánica (%)",
     min_value=0.0, max_value=100.0, value=3.0,
