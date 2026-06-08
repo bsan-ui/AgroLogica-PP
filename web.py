@@ -107,7 +107,7 @@ with tab1:
     
     if archivo_csv is not None:
         # Carga de datos originales
-        df = pd.read_csv(archivo_csv)
+        df = pd.read_csv(archivo_csv, encoding='utf-8-sig')
         
         # Limpieza estadística
         df_limpio = df.fillna(df.median(numeric_only=True))
