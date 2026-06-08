@@ -8,20 +8,19 @@ st.set_page_config(page_title="AgroLógica", page_icon="🌱", layout="wide")
 st.title("AgroLógica")
 
 with st.sidebar:
-    st.markdown("## El Efecto Dominó (ODS)")
-    st.markdown(
-        "El modelo **AgroLógica** interviene tecnológicamente para frenar la degradación territorial en San Bernabé Ocotepec, transformando un riesgo latente en un ciclo de impacto positivo. "
-        "Todo comienza con la **Producción y consumo responsables (ODS 12)**: al prescribir la dosis exacta de insumos mediante el algoritmo, se elimina el desperdicio químico y los costos ciegos. "
-        "Esta precisión frena la sobre-fertilización, deteniendo la pérdida de suelo fértil y protegiendo directamente la vida de los **Ecosistemas terrestres (ODS 15)**. "
-        "A su vez, mantener un entorno sano garantiza cosechas eficientes que aseguran la rentabilidad agrícola y el sustento de las familias, fomentando el **Trabajo decente y crecimiento económico (ODS 8)**. "
-        "Finalmente, esta viabilidad financiera del campo evita que los agricultores se vean empujados a vender sus tierras, frenando el avance destructivo de la mancha urbana y salvaguardando el desarrollo de verdaderas **Ciudades y comunidades sostenibles (ODS 11)**."
-    )
-    st.markdown("---")
+    st.markdown("### El Efecto Dominó (ODS)")
+    st.markdown("AgroLógica frena la degradación territorial en San Bernabé Ocotepec mediante un impacto escalonado:")
     
-st.markdown("Herramienta digital para el diagnóstico de la salud del suelo y optimización de cultivos.")
-
-st.divider()
-
+    st.info("**ODS 12: Producción responsable**\n\nPrescripción exacta de insumos mediante el algoritmo para eliminar el desperdicio químico y los costos ciegos.")
+    
+    st.success("**ODS 15: Ecosistemas terrestres**\n\nFreno a la sobre-fertilización, deteniendo la pérdida de suelo fértil y protegiendo el ecosistema.")
+    
+    st.warning("**ODS 8: Crecimiento económico**\n\nCosechas eficientes que aseguran la rentabilidad agrícola y el sustento de las familias.")
+    
+    st.error("**ODS 11: Ciudades sostenibles**\n\nUn campo financieramente viable evita que los agricultores vendan sus tierras, frenando el avance de la mancha urbana.")
+    
+    st.divider()
+    
 tab1, tab2 = st.tabs(["Analizar todos mis terrenos", "Revisar un solo terreno"])
 
 # =====================================================================
