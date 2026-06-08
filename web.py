@@ -77,21 +77,21 @@ def diagnostico_preciso(ph, mo, n, p, k, pendiente, erosion, lluvia, cultivo):
 with tab1:
     st.header("Revisión de todas mis parcelas")
     
-    plantilla = pd.DataFrame(columns=[
-    "Parcela", 
-    "pH", 
-    "Grado de erosión", 
-    "Pendiente %", 
-    "Materia orgánica %", 
-    "Lluvia mm", 
-    "Fósforo mg/kg", 
-    "Nitrógeno mg/kg", 
-    "Potasio mg/kg", 
-    "Cosecha principal"
-])
+   plantilla = pd.DataFrame(columns=[
+        "Parcela", 
+        "pH", 
+        "Grado de erosion", 
+        "Pendiente %", 
+        "Materia organica %", 
+        "Lluvia mm", 
+        "Fosforo mg/kg", 
+        "Nitrogeno mg/kg", 
+        "Potasio mg/kg", 
+        "Cosecha principal"
+    ])
 
-# 2. Convertir el DataFrame a formato CSV en memoria (usando utf-8 para respetar los acentos)
-    csv_plantilla = plantilla.to_csv(index=False).encode('utf-8')
+    # Se usa utf-8-sig para forzar a las apps de celular y a Excel a leer el archivo correctamente
+    csv_plantilla = plantilla.to_csv(index=False).encode('utf-8-sig')
 
 # 3. Crear el botón de descarga nativo de Streamlit
     st.download_button(
@@ -126,7 +126,8 @@ with tab1:
                 st.dataframe(df_limpio, height=250, use_container_width=True)
         # ------------------------------------------------------------------
 
-        cols_requeridas = ['pH', 'Grado de erosión', 'Pendiente %', 'Materia orgánica %', 'Lluvia mm', 'Fósforo mg/kg', 'Nitrógeno mg/kg', 'Potasio mg/kg', 'Cosecha principal']
+        # Definimos las columnas requeridas SIN acentos para evitar errores en móviles
+        cols_requeridas = ['pH', 'Grado de erosion', 'Pendiente %', 'Materia organica %', 'Lluvia mm', 'Fosforo mg/kg', 'Nitrogeno mg/kg', 'Potasio mg/kg', 'Cosecha principal']
         
         if all(col in df_limpio.columns for col in cols_requeridas):
             st.divider()
@@ -135,8 +136,8 @@ with tab1:
             with st.spinner("Procesando matriz de datos..."):
                 df_limpio[['Diagnóstico_AgroLogica', 'Plan_de_acción']] = df_limpio.apply(
                     lambda f: pd.Series(diagnostico_preciso(
-                        f['pH'], f['Materia orgánica %'], f['Nitrógeno mg/kg'], f['Fósforo mg/kg'], 
-                        f['Potasio mg/kg'], f['Pendiente %'], f['Grado de erosión'], f['Lluvia mm'], f['Cosecha principal']
+                        f['pH'], f['Materia organica %'], f['Nitrogeno mg/kg'], f['Fosforo mg/kg'], 
+                        f['Potasio mg/kg'], f['Pendiente %'], f['Grado de erosion'], f['Lluvia mm'], f['Cosecha principal']
                     )), axis=1
                 )
             
