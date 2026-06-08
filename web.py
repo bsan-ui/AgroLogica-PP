@@ -88,7 +88,7 @@ with tab1:
         "Nitrogeno mg/kg", 
         "Potasio mg/kg", 
         "Cosecha principal"
-    ])
+        ])
 
     # Se usa utf-8-sig para forzar a las apps de celular y a Excel a leer el archivo correctamente
     csv_plantilla = plantilla.to_csv(index=False).encode('utf-8-sig')
